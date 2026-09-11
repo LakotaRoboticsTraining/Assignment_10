@@ -2,7 +2,7 @@
 
 Goal: Use a parent type variable to hold subclass objects, and see the correct overridden method run.
 
-Time: About 30–40 minutes
+Time: About 30-40 minutes
 
 You will learn:
 
@@ -89,7 +89,7 @@ If canId exists only on FalconMotor, this will not compile:
 
 ```java
 Motor left = new FalconMotor("left", 0.4, 1);
-// left.canId;   // not allowed — Motor doesn't declare canId
+// left.canId;   // not allowed - Motor doesn't declare canId
 ```
 
 
@@ -108,7 +108,7 @@ The scheduler calls auton.initialize()  ShootCommand’s version runs.
 
 ### Common mistakes
 
-1. Thinking the variable type decides the method body — the object does, if the method is overridden
+1. Thinking the variable type decides the method body - the object does, if the method is overridden
 
 ```java
 2. Forgetting @Override so you accidentally added a *new* method instead of replacing the parent one
@@ -116,7 +116,7 @@ The scheduler calls auton.initialize()  ShootCommand’s version runs.
 
 3. Trying to use subclass-only fields through a parent-type variable
 
-4. Confusing overload (Lesson 6) with override (Lesson 9–10)
+4. Confusing overload (Lesson 6) with override (Lesson 9-10)
 
 - Overload: same name, different parameters, same class
 - Override: same name + same parameters, subclass replaces parent
@@ -125,7 +125,7 @@ The scheduler calls auton.initialize()  ShootCommand’s version runs.
 
 Build on Lesson 9. Finish `VideoGame`, `Arcade.playGame` / `downloadGame`, and `Main`.
 
-### Challenge 1 â€” Parent variable / polymorphic play
+### Challenge 1 - Parent variable / polymorphic play
 
 `VideoGame` must `@Override play()` so the text includes `Playing the video game` and the name.
 
@@ -134,7 +134,7 @@ Implement `Arcade.playGame(String name)`:
 - If the game is in the library, call `play()` (correct subclass version)
 - If missing, print that the arcade doesn't have that name (include the name)
 
-### Challenge 2 â€” Both types / download
+### Challenge 2 - Both types / download
 
 `VideoGame` implements `Downloadable` with `download()` text including `Download the video game` and the name.
 
@@ -143,7 +143,7 @@ Implement `downloadGame(String name)`:
 - If the game is a `VideoGame`, call `download()` and return `true`
 - Otherwise return `false`
 
-### Challenge 3 â€” Loop it in main
+### Challenge 3 - Loop it in main
 
 In `Main`, add Pokemon + Spaceball, then:
 
@@ -175,6 +175,6 @@ Answers
 
 ### Looking ahead
 
-In Lesson 11, you will organize classes into packages (frc.robot.subsystems, frc.robot.commands) and use import—the same structure as the team robot project.
+In Lesson 11, you will organize classes into packages (frc.robot.subsystems, frc.robot.commands) and use import-the same structure as the team robot project.
 
 Lesson complete. When you can store a subclass in a parent-type variable and see the overridden method run, you are ready for Lesson 11.
