@@ -151,29 +151,26 @@ In `Main`, add Pokemon + Spaceball, then:
 - `playGame("Pokemon")` and `playGame("Spaceball")`
 - `downloadGame` for both and print whether each download succeeded
 
-### Check your understanding
+## Check your understanding
 
-```java
-1. In Motor m = new FalconMotor(...), what is the variable type? The object type?
-```
+1. <details>
+     <summary>In `Motor m = new FalconMotor(...)`, what is the variable type? The object type?</summary>
+     Variable type `Motor`; object type `FalconMotor`.
+   </details>
+2. <details>
+     <summary>Which `report()` runs if `FalconMotor` overrides it?</summary>
+     FalconMotor's eport().
+   </details>
+3. <details>
+     <summary>Can you read `canId` from `m` if `m` is declared as `Motor`?</summary>
+     No, not through `m`. `Motor` does not have `canId`.
+   </details>
+4. <details>
+     <summary>How is override different from overload?</summary>
+     Overload = same name, different parameters. Override = subclass replaces parent method with the same signature.
+   </details>
 
-2. Which report() runs if FalconMotor overrides it?
-
-3. Can you read canId from m if m is declared as Motor?
-
-4. How is override different from overload?
-
-Answers
-
-1. Variable type Motor; object type FalconMotor.
-
-2. FalconMotor's report().
-
-3. No, not through m. Motor does not have canId.
-
-4. Overload = same name, different parameters. Override = subclass replaces parent method with the same signature.
-
-### Looking ahead
+## Looking ahead
 
 In Lesson 11, you will organize classes into packages (frc.robot.subsystems, frc.robot.commands) and use import-the same structure as the team robot project.
 
