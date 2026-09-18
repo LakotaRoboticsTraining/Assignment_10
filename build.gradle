@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.lakota.training'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Flat layout: student .java files and *Test.java live in the repo root.
+sourceSets {
+    main {
+        java {
+            srcDirs = ['.']
+            exclude '**/*Test.java'
+            exclude '**/build/**'
+            exclude '**/.gradle/**'
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+    test {
+        java {
+            srcDirs = ['.']
+            include '**/*Test.java'
+            exclude '**/build/**'
+            exclude '**/.gradle/**'
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showStandardStreams = true
+    }
+}

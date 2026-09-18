@@ -19,7 +19,7 @@ The command scheduler does not care whether you have a ShootCommand or an AlignC
 
 ### The big idea
 
-Polymorphism = “same message, different action depending on the real object.”
+Polymorphism = "same message, different action depending on the real object."
 
 You call report() on a Motor variable. If the object is actually a FalconMotor, the Falcon report() runs.
 
@@ -40,7 +40,7 @@ left.report();
 - The variable type is Motor (what you can call: anything Motor has)
 - The object type is FalconMotor (what it really is)
 ```java
-report() uses the object’s version if it was @Overriden
+report() uses the object's version if it was @Overriden
 ```
 
 ```java
@@ -104,7 +104,7 @@ Command auton = new ShootCommand();   // variable type Command, object ShootComm
 
 
 
-The scheduler calls auton.initialize()  ShootCommand’s version runs.
+The scheduler calls auton.initialize()  ShootCommand's version runs.
 
 ### Common mistakes
 
@@ -124,6 +124,8 @@ The scheduler calls auton.initialize()  ShootCommand’s version runs.
 ## Try it yourself
 
 Build on Lesson 9. Finish `VideoGame`, `Arcade.playGame` / `downloadGame`, and `Main`.
+
+Do **not** edit `ArcadePolymorphismTest.java` - that file checks your work automatically when you open a pull request.
 
 ### Challenge 1 - Parent variable / polymorphic play
 
