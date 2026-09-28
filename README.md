@@ -125,7 +125,7 @@ The scheduler calls auton.initialize()  ShootCommand's version runs.
 
 Build on Lesson 9. Finish `VideoGame`, `Arcade.playGame` / `downloadGame`, and `Main`.
 
-Do **not** edit `ArcadePolymorphismTest.java` - that file checks your work automatically when you open a pull request.
+Do **not** edit `src/test/java/ArcadePolymorphismTest.java` - that file checks your work automatically when you open a pull request.
 
 ### Challenge 1 - Parent variable / polymorphic play
 
