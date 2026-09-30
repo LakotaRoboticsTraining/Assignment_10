@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ArcadePolymorphismTest {
@@ -20,7 +21,6 @@ class ArcadePolymorphismTest {
     private String captureOutput(Runnable action) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
-
         try {
             System.setOut(new PrintStream(outputStream));
             action.run();
@@ -31,78 +31,80 @@ class ArcadePolymorphismTest {
     }
 
     @Test
+    @DisplayName("Challenge 2: VideoGame implements Downloadable")
     void videoGameImplementsDownloadable() {
         assertTrue(Downloadable.class.isAssignableFrom(VideoGame.class),
-            "VideoGame should implement the Downloadable interface.");
+            "challenge2 failed - VideoGame should implement Downloadable.");
     }
 
     @Test
+    @DisplayName("Challenge 1: playGame uses VideoGame.play")
     void playGameUsesOverriddenVideoGameBehavior() {
         Arcade arcade = arcadeWithSampleGames();
-
         String output = captureOutput(() -> arcade.playGame("Pokemon"));
 
         assertTrue(output.contains("Playing the video game Pokemon"),
-            "playGame() should call VideoGame's overridden play() method.");
+            "challenge1 failed - playGame(\"Pokemon\") should print: Playing the video game Pokemon");
     }
 
     @Test
+    @DisplayName("Challenge 1: playGame uses Pinball.play")
     void playGameUsesOverriddenPinballBehavior() {
         Arcade arcade = arcadeWithSampleGames();
-
         String output = captureOutput(() -> arcade.playGame("Spaceball"));
 
         assertTrue(output.contains("Playing the pinball game Spaceball"),
-            "playGame() should call Pinball's overridden play() method.");
+            "challenge1 failed - playGame(\"Spaceball\") should print: Playing the pinball game Spaceball");
     }
 
     @Test
+    @DisplayName("Challenge 1: missing game message")
     void playGameReportsMissingGames() {
         Arcade arcade = arcadeWithSampleGames();
-
         String output = captureOutput(() -> arcade.playGame("Pac-Man"));
 
         assertTrue(output.contains("doesn't have Pac-Man"),
-            "playGame() should report when a game is not in the library.");
+            "challenge1 failed - playGame(\"Pac-Man\") should say the arcade doesn't have Pac-Man.");
     }
 
     @Test
+    @DisplayName("Challenge 2: downloadGame for VideoGame")
     void downloadGameReturnsTrueForVideoGames() {
         Arcade arcade = arcadeWithSampleGames();
-
         String output = captureOutput(() -> {
             boolean downloaded = arcade.downloadGame("Pokemon");
             assertTrue(downloaded,
-                "downloadGame() should return true for a VideoGame.");
+                "challenge2 failed - downloadGame(\"Pokemon\") should return true.");
         });
 
         assertTrue(output.contains("Download the video game Pokemon"),
-            "downloadGame() should call download() on VideoGame objects.");
+            "challenge2 failed - downloadGame should print: Download the video game Pokemon");
     }
 
     @Test
+    @DisplayName("Challenge 2: downloadGame for Pinball")
     void downloadGameReturnsFalseForNonDownloadableGames() {
         Arcade arcade = arcadeWithSampleGames();
-
         boolean downloaded = arcade.downloadGame("Spaceball");
 
         assertFalse(downloaded,
-            "downloadGame() should return false for games that are not VideoGame objects.");
+            "challenge2 failed - downloadGame(\"Spaceball\") should return false (not Downloadable).");
     }
 
     @Test
+    @DisplayName("Challenge 3: Main play + download flow")
     void mainDemonstratesPolymorphicPlayAndDownload() {
-        String output = captureOutput(() -> Main.main(new String[]{}));
+        String output = captureOutput(() -> Main.main(new String[] {}));
 
         assertTrue(output.contains("doesn't have Pac-Man"),
-            "Main should try to play a game that is not in the library.");
+            "challenge3 failed - Main should try playGame(\"Pac-Man\") and report it is missing.");
         assertTrue(output.contains("Playing the video game Pokemon"),
-            "Main should play the video game through the arcade.");
+            "challenge3 failed - Main should play Pokemon through the arcade.");
         assertTrue(output.contains("Playing the pinball game Spaceball"),
-            "Main should play the pinball game through the arcade.");
+            "challenge3 failed - Main should play Spaceball through the arcade.");
         assertTrue(output.contains("Pokemon download was successful"),
-            "Main should report a successful video game download.");
+            "challenge3 failed - Main should print that Pokemon download was successful.");
         assertTrue(output.contains("Spaceball download was unsuccessful"),
-            "Main should report an unsuccessful pinball download.");
+            "challenge3 failed - Main should print that Spaceball download was unsuccessful.");
     }
 }
