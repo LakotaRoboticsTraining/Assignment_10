@@ -28,6 +28,68 @@ test {
     useJUnitPlatform()
     testLogging {
         events 'passed', 'skipped', 'failed'
-        showStandardStreams = true
+        exceptionFormat 'full'
+        showExceptions true
+        showCauses true
+        showStackTraces false
+        showStandardStreams false
+    }
+
+    // Collect rows for a student-friendly table printed at the end.
+    def rows = []
+    afterTest { desc, result ->
+        String hint = ""
+        if (result.resultType == TestResult.ResultType.FAILURE) {
+            def ex = result.exceptions ? result.exceptions[0] : null
+            if (ex != null) {
+                hint = (ex.message ?: ex.toString())
+                    .replaceAll(/(?s).*AssertionFailedError:\s*/, "")
+                    .replaceAll(/\s+/, " ")
+                    .trim()
+                if (hint.length() > 160) {
+                    hint = hint.substring(0, 157) + "..."
+                }
+            }
+        }
+        rows << [
+            status : result.resultType == TestResult.ResultType.SUCCESS ? "PASS"
+                   : result.resultType == TestResult.ResultType.SKIPPED ? "SKIP"
+                   : "FAIL",
+            name   : desc.name,
+            hint   : hint
+        ]
+    }
+
+    afterSuite { desc, result ->
+        if (desc.parent != null) {
+            return
+        }
+        println ""
+        println "========== TEST SUMMARY =========="
+        printf "%-6s | %-55s | %s%n", "STATUS", "TEST", "HINT (if failed)"
+        println "-------+---------------------------------------------------------+------------------------------"
+        rows.each { r ->
+            printf "%-6s | %-55s | %s%n", r.status, r.name, r.hint
+        }
+        println "=================================="
+        println "Passed: ${result.successfulTestCount}   Failed: ${result.failedTestCount}   Total: ${result.testCount}"
+        println ""
+
+        // Also write markdown for GitHub Actions job summary when present.
+        def summaryPath = System.getenv("GITHUB_STEP_SUMMARY")
+        if (summaryPath) {
+            def md = new StringBuilder()
+            md.append("## Test summary\n\n")
+            md.append("| Status | Test | Hint |\n")
+            md.append("| --- | --- | --- |\n")
+            rows.each { r ->
+                def hint = (r.hint ?: "").replace("|", "\\|")
+                md.append("| ${r.status} | `${r.name}` | ${hint} |\n")
+            }
+            md.append("\n**Passed:** ${result.successfulTestCount}  ")
+            md.append("**Failed:** ${result.failedTestCount}  ")
+            md.append("**Total:** ${result.testCount}\n")
+            new File(summaryPath).append(md.toString())
+        }
     }
 }
