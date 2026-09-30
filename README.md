@@ -123,7 +123,7 @@ The scheduler calls auton.initialize()  ShootCommand's version runs.
 
 ## Try it yourself
 
-> **Find your starter files:** In the file explorer, open `src` â†’ `main` â†’ `java`. Edit `VideoGame.java`, `Arcade.java`, and `Main.java` there.
+> **Find your starter files:** In the file explorer, open the `src` folder, then `main`, then `java`. Edit `VideoGame.java`, `Arcade.java`, and `Main.java` there.
 > Do **not** create new Java files at the top of the repo.
 
 Build on Lesson 9. Finish `src/main/java/VideoGame.java`, `Arcade.playGame` / `downloadGame` in `src/main/java/Arcade.java`, and `src/main/java/Main.java`.
